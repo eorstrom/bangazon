@@ -8,6 +8,7 @@ namespace Bangazon
 {
     public class InternalOperations
     {
+        // code to determine which menu option path to display and follow
         public static void displayMenu(List<string> linesToDisplay)
         {
             int index = 1;
@@ -17,7 +18,7 @@ namespace Bangazon
             }
         }
 
-        public static int getChoice()
+        public static int getUserChoice()
         {
             Console.Write("> ");
             string choice = Console.ReadLine();

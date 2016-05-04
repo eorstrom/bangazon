@@ -15,7 +15,7 @@ namespace Bangazon
             List<CustomerInfo> customerList = DatabaseActions.loadCustomers();
             List<Product> lineItems = new List<Product>();
 
-            MainLoop:
+            MainMenu:
             Console.WriteLine("\n******************************************************");
             Console.WriteLine("** Welcome to Bangazon Command Line Ordering System **");
             Console.WriteLine("******************************************************");
@@ -27,29 +27,37 @@ namespace Bangazon
                       "See Product Popularity",
                       "Leave Bangazon" };
             InternalOperations.displayMenu(displayList);
-            switch (InternalOperations.getChoice())
+            // switch statement to handle user's input indicating a choice 
+            switch (InternalOperations.getUserChoice())
             {
+                // Create an Account/New Customer
                 case 0:
                     customerList = MenuOptions.AddCustomer();
                     break;
+                // Create a Payment Option
                 case 1:
                     MenuOptions.AddPaymentType(customerList);
                     break;
+                // Order a Product
                 case 2:
                     lineItems = MenuOptions.ChooseProducts(productList, lineItems);
                     break;
+                // Complete an Order
                 case 3:
                     lineItems = MenuOptions.CloseOrder(lineItems, customerList);
                     break;
+                // See Product Popularity
                 case 4:
                     MenuOptions.ReportPopularProducts(productList);
                     break;
+                // Leave Bangazon
                 case 5:
                     goto End;
+                // Exit switch statement
                 default:
                     break;
             }
-            goto MainLoop;
+            goto MainMenu;
         End:
             Console.WriteLine("Come back soon!");
         }
