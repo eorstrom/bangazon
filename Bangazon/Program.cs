@@ -3,30 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace Bangazon
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            List<string> customers = new List<string>();
-            customers.Add("Lily Owens");
-
-            List<string> lineItems = new List<string>();
-
-            Console.WriteLine("*********************************************************");
-            Console.WriteLine("**  Welcome to Bangazon! Command Line Ordering System  **");
-            Console.WriteLine("*********************************************************");
-            Console.WriteLine("1. Create and Account");
-            Console.WriteLine("2. Create a Payment Option");
-            Console.WriteLine("3. Order a Product");
-            Console.WriteLine("4. Complete an Order");
-            Console.WriteLine("5. See Product Popularity");
-            Console.WriteLine("6. Leave Bangazon!");
-
-            Console.WriteLine("What would you like to do? (Enter a number choice)");
-            string userChoice = Console.ReadLine();
+            Menu.main();
 
             switch (userChoice)
             {
@@ -64,6 +49,23 @@ namespace Bangazon
                     break;
             }
 
+        }
+
+        static int doSql(string command)
+        {
+            System.Data.SqlClient.SqlConnection sqlConnection1 =
+                new System.Data.SqlClient.SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB; AttachDbFilename=\'C:\\Users\\Erin\\Documents\\Visual Studio 2015\\Projects\\Invoices\\Invoices\\Invoices.mdf'; Integrated Security= True");
+
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = command;
+            cmd.Connection = sqlConnection1;
+
+            sqlConnection1.Open();
+            cmd.ExecuteNonQuery();
+            sqlConnection1.Close();
+
+            return 0;
         }
     }
 }
